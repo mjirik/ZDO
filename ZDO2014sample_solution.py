@@ -15,6 +15,7 @@ import skimage.transform
 import glob
 import os
 import numpy as np
+import urllib
 
 
 class Znacky:
