@@ -33,8 +33,8 @@ class Znacky:
         
         # Načítání natrénovaných parametrů klasifikátoru ze souboru atd.
         if params_online:
-            url = ''
-            urllib.request.urlretrieve(url, "ZDO2014sample_solution.pkl")
+            url = 'https://raw.githubusercontent.com/mjirik/ZDO/master/ZDO2014sample_solution.pkl'
+            urllib.urlretrieve(url, "ZDO2014sample_solution.pkl")
             
         try:
             self.clf = pickle.load( open( "ZDO2014sample_solution.pkl", "rb" ) )
