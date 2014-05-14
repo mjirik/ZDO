@@ -1,0 +1,196 @@
+<!doctype html>
+<html>
+  <head>
+  </head>
+  <body>
+<script type="text/javascript">
+    var ws;
+    var url;
+    
+    function connect() {
+        url = document.getElementById("server_url").value;
+        console.log(url);
+        
+        if ("WebSocket" in window) {
+            ws = new WebSocket(url);
+        } else if ("MozWebSocket" in window) {
+            ws = new MozWebSocket(url);
+        } else {
+            document.getElementById("messages").innerHTML += "This Browser does not support WebSockets<br />";
+            return;
+        }
+        ws.onopen = function(e) {
+            document.getElementById("messages").innerHTML += "Client: A connection to "+ws.URL+" has been opened.<br />";
+            
+            document.getElementById("server_url").disabled = true;
+            document.getElementById("toggle_connect").innerHTML = "Disconnect";
+        };
+        
+        ws.onerror = function(e) {
+            document.getElementById("messages").innerHTML += "Client: An error occured, see console log for more details.<br />";
+            console.log(e);
+        };
+        
+        ws.onclose = function(e) {
+            document.getElementById("messages").innerHTML += "Client: The connection to "+url+" was closed.<br />";
+        };
+        
+        ws.onmessage = function(e) {
+            if(e.data.substring(0, 9) == "{DepthMap"){
+                drawDepth(e.data);
+            }
+            else if(e.data.substring(0, 7) == "{RGBMap"){
+                drawImage(e.data);
+            }                                                       
+            document.getElementById("messages").innerHTML = "Server: "+e.data+"<br />";
+            
+        };
+    }
+    
+    function drawDepth(data) {
+          
+      var canSize = data.substring(10, data.indexOf("}")).split(",");
+      var depth = data.substring(data.indexOf("[")+1, data.length-2).split(",");
+      var max = 0;
+      
+      for(var i = 0; i < depth.length; i ++) {
+          depth[i] = depth[i].replace("<BR>", "");
+          if(depth[i]>max){
+            max = depth[i];
+          } 
+      }
+                              
+      var transValue = 255/max;
+      
+      var canvas = document.getElementById("myCanvas"); 
+      var can = canvas.getContext("2d");
+      
+      if(can){
+        canvas.width = canSize[0];
+        canvas.height = canSize[1];
+        var indexD = 0;
+        var tmpDepth = 0;
+        var valR = document.getElementById("valueR").value;   
+        var valG = document.getElementById("valueG").value;
+        var valB = document.getElementById("valueB").value;
+        
+        for(var x = 0; x < canSize[0]; x ++) {
+           for(var y = 0; y < canSize[1]; y ++) { 
+              tmpDepth = Math.round(depth[indexD]*transValue);
+              can.fillStyle = "rgb("+Math.round(tmpDepth*valR)+","+Math.round(tmpDepth*valG)+","+Math.round(tmpDepth*valB)+")";
+              can.fillRect(x,y,2,2);
+              indexD ++;
+           }       
+        }
+      }
+    }  
+    
+    function drawImage(data) {
+          
+      var canSize = data.substring(8, data.indexOf("}")).split(",");
+      var rgb = data.substring(data.indexOf("[")+1, data.length-2).split(";");
+      
+      for(var i = 0; i < rgb.length; i ++) {
+          rgb[i] = rgb[i].replace("<BR>", "");
+      }
+      
+      var canvas = document.getElementById("myCanvas"); 
+      var can = canvas.getContext("2d");
+      
+      if(can){
+        canvas.width = canSize[0];
+        canvas.height = canSize[1];
+        var indexD = 0;
+        var tmpRgb;
+        
+        for(var y = 0; y < canSize[1]; y ++) {
+           for(var x = 0; x < canSize[0]; x ++) { 
+              tmpRgb = rgb[indexD].split(",");
+              
+              can.fillStyle = "rgb("+tmpRgb[0]+","+tmpRgb[1]+","+tmpRgb[2]+")";
+              can.fillRect(x,y,2,2);
+              indexD ++;
+           }       
+        }
+      }
+    }                         
+    
+    function disconnect() {
+        ws.close();
+        document.getElementById("server_url").disabled = false;
+        document.getElementById("toggle_connect").innerHTML = "Connect";
+    }
+    
+    function toggle_connect() {   
+        
+        if (document.getElementById("server_url").disabled === false) {
+            connect();
+        } else {
+            disconnect();
+        }
+    }
+    
+    function toggle_realtimeDepth() {         
+        window.setInterval(function(){
+           document.getElementById("msg").value = "depth";
+           send(); 
+        }, 2000);
+    }
+    
+    function send() {        
+        if (ws === undefined || ws.readyState != 1) {
+            document.getElementById("messages").innerHTML += "Client: Websocket is not avaliable for writing<br />";
+            return;
+        }
+        
+        ws.send(document.getElementById("msg").value);
+
+
+      var downCan = document.getElementById("downloadLnk"); 
+         downCan.addEventListener('click', download, false);
+    }
+          
+
+ function download() {
+
+      var canvas = document.getElementById("myCanvas"); 
+   	 var dt = canvas.toDataURL('image/jpeg');
+   	 this.href = dt;
+  };
+             
+</script>
+    <style>body,html {     margin: 0px;     padding: 0px; } #controls {     float:right;     background-color: #999; } 
+    </style>                      
+    <div id="controls">    
+      <div id="server">    
+        <input type="text" name="server_url" id="server_url" value="ws://localhost:9002" />    
+        <button id="toggle_connect" onclick="toggle_connect();">Connect
+        </button>    
+      </div>    
+      <div id="message_input">
+        <input type="text" name="msg" id="msg" value="skeleton" />    
+        <button onclick="send();">Send
+        </button>
+      </div>
+      <div id="message_input"> 
+        <button onclick="toggle_realtimeDepth();">Realtime Depth
+        </button>
+      </div>
+      <div id="rgb">    
+        R:
+        <input type="text" name="valueR" id="valueR" value="0.3" size="3" />
+        G:
+        <input type="text" name="valueG" id="valueG" value="0.59" size="3" />
+        B:
+        <input type="text" name="valueB" id="valueB" value="0.11" size="3" />
+      </div>
+	<a id="downloadLnk" download="YourFileName.jpg">Download as image</a>
+    </div>       
+      <div>
+        <canvas id="myCanvas" width="0" height="0" style="border:1px solid #000000;">
+        </canvas> 
+      </div> 
+      <div id="messages">
+      </div>
+  </body>
+</html>
