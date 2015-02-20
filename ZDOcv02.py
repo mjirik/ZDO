@@ -26,6 +26,10 @@
 
 %pylab inline --no-import-all
 
+# <markdowncell>
+
+# ![klam](http://i.idnes.cz/10/061/gal/PKA337ef7_iluze_2_.jpg)
+
 # <codecell>
 
 import scipy
@@ -40,13 +44,55 @@ import matplotlib.pyplot as plt
 
 # scipy.misc.imread(
 URL = "http://plzen.cz/kamera.php?0.8989779513794929"
-URL = "http://www.chmi.cz/files/portal/docs/meteo/kam/pribram.jpg"
+# URL = "http://www.chmi.cz/files/portal/docs/meteo/kam/pribram.jpg"
 
 
 file = cStringIO.StringIO(urllib.urlopen(URL).read())
 
 img = scipy.misc.imread(file)
 plt.imshow(img)
+plt.show()
+
+# <headingcell level=1>
+
+# Práce s obrázkem
+
+# <codecell>
+
+img.shape
+
+# <codecell>
+
+
+# <codecell>
+
+img[50, 10, 0]
+
+# <codecell>
+
+
+# <codecell>
+
+
+# <codecell>
+
+img[10:15, 10:15, 0]
+
+# <codecell>
+
+pole = [1,2,3,4,5,6,7,8,9]
+print pole[::2]
+
+# <codecell>
+
+file = cStringIO.StringIO(urllib.urlopen(URL).read())
+img = scipy.misc.imread(file)
+img[130:140,:, 2] = 0
+plt.imshow(img)
+
+# <codecell>
+
+plt.imshow(img[::10, ::10, :])
 
 # <markdowncell>
 
