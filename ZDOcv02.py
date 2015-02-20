@@ -11,6 +11,16 @@
 # ![chodba nakres](http://www.kky.zcu.cz/uploads/courses/zdo/lesson1/image004.gif)
 # 
 # Orientace předmětů
+# 
+# 
+# ![hrnek](http://www.kky.zcu.cz/uploads/courses/zdo/lesson1/image008.jpg)
+# ![hrnek](http://www.kky.zcu.cz/uploads/courses/zdo/lesson1/image010.jpg)
+# ![hrnek](http://www.kky.zcu.cz/uploads/courses/zdo/lesson1/image012.jpg)
+# 
+# odrazivý / neodrazivý povrch
+# 
+# ![hrnek](http://www.kky.zcu.cz/uploads/courses/zdo/lesson1/image014.jpg)
+# ![cd](http://www.kky.zcu.cz/uploads/courses/zdo/lesson1/image016.jpg)
 
 # <codecell>
 
