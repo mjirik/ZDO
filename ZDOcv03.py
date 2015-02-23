@@ -21,6 +21,7 @@ import matplotlib.pyplot as plt
 
 # <codecell>
 
+URL = "http://uc452cam01-kky.fav.zcu.cz/snapshot.jpg"
 URL = "http://plzen.cz/kamera.php?0.8989779513794929"
 
 # <codecell>
