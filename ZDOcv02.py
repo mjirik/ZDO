@@ -32,6 +32,7 @@
 
 # <codecell>
 
+%pylab inline --no-import-all
 import scipy
 import scipy.misc
 import numpy as np
@@ -43,7 +44,8 @@ import matplotlib.pyplot as plt
 # <codecell>
 
 # scipy.misc.imread(
-URL = "http://plzen.cz/kamera.php?0.8989779513794929"
+URL = "http://uc452cam01-kky.fav/snapshot.jpg"
+# URL = "http://plzen.cz/kamera.php?0.8989779513794929"
 # URL = "http://www.chmi.cz/files/portal/docs/meteo/kam/pribram.jpg"
 
 
