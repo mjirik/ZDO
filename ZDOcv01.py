@@ -20,14 +20,22 @@
 # 
 # http://stackoverflow.com/questions/23119413/how-to-install-python-opencv-through-conda
 
-# <codecell>
+# <headingcell level=2>
 
-# priprava pro ipython notebook
-%pylab inline --no-import-all
+# Programování v pythonu
+
+# <markdowncell>
+
+# http://pythonic.eu/fjfi/
 
 # <headingcell level=1>
 
 # Ukázka
+
+# <codecell>
+
+# priprava pro ipython notebook
+%pylab inline --no-import-all
 
 # <codecell>
 
