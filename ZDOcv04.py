@@ -63,7 +63,7 @@ lena = scipy.misc.lena()
 
 l = lena[230:290, 220:320]
 
-noisy = l + 0.4*l.std()*np.random.random(l.shape)
+noisy = l + 1.6*l.std()*np.random.random(l.shape)
 
 plt.imshow(noisy, cmap='gray')
 plt.show()
@@ -71,8 +71,8 @@ plt.show()
 # <codecell>
 
 
-local_mean = ndimage.uniform_filter(noisy, size=11)
-plt.imshow(local_mean, cmap='gray')
+local_mean = ndimage.uniform_filter(noisy, size=15)
+plt.imshow(local_mean, cmap='gray', interpolation=None)
 plt.show()
 
 # <headingcell level=3>
@@ -81,7 +81,7 @@ plt.show()
 
 # <codecell>
 
-blurred_lena = ndimage.gaussian_filter(noisy, sigma=3)
+blurred_lena = ndimage.gaussian_filter(noisy, sigma=1)
 very_blurred = ndimage.gaussian_filter(noisy, sigma=5)
 plt.imshow(blurred_lena, cmap='gray')
 plt.figure()
@@ -108,6 +108,9 @@ plt.imshow(very_blurred, cmap='gray')
 # <codecell>
 
 med_denoised = ndimage.median_filter(noisy, 3)
+plt.imshow(noisy, cmap='gray')
+plt.show()
+plt.figure()
 plt.imshow(med_denoised, cmap='gray')
 plt.show()
 
@@ -137,12 +140,12 @@ import matplotlib.pyplot as plt
 
 # <codecell>
 
-img = np.zeros([50,50])
+img = np.zeros([50, 50])
 img[20:30,20:30] = 50
 
 plt.imshow(img, cmap='gray')
 
-sob = scipy.ndimage.filters.sobel(img,0)
+sob = scipy.ndimage.filters.sobel(img, 0)
 plt.imshow(sob, cmap='gray')
 
 # <codecell>
@@ -261,6 +264,39 @@ plt.imshow(edges2, cmap='gray')
 #                 
 #                 
 # vlevo nahoře – šedotónový obraz se světelným přechodem, vpravo nahoře naprahovaný obraz pomocí prahu 150 (struktura není znatelná na celém obraze), vlevo dole – původní obraz po odstranění objektů, vpravo dole – výsledek prahování po odstranění vlivu pozadí (odečtení od původního obrazu)
+
+# <headingcell level=3>
+
+# Úkol
+
+# <markdowncell>
+
+# Zobrazte hranový obraz bez teček
+
+# <codecell>
+
+import cv2
+
+import numpy as np
+from matplotlib import pyplot as plt
+import scipy
+import scipy.misc
+import urllib
+import cStringIO
+
+import matplotlib.pyplot as plt
+
+import scipy.ndimage
+from scipy import ndimage
+
+# scipy.misc.imread(
+URL = "http://uc452cam01-kky.fav.zcu.cz/snapshot.jpg"
+
+file = cStringIO.StringIO(urllib.urlopen(URL).read())
+
+img = scipy.misc.imread(file)
+
+plt.imshow(img)
 
 # <headingcell level=1>
 
