@@ -3,7 +3,7 @@
 
 # <headingcell level=1>
 
-# Klasifikátory
+# Klasifikátory a analýza pohybu
 
 # <markdowncell>
 
@@ -151,5 +151,40 @@ print("Number of mislabeled points : %d" % (test_target != y_pred).sum())
 # výstup
 # ![kmeans výstup](http://www.kky.zcu.cz/uploads/courses/zdo/lesson8/3.jpg)
 # 
-# Pro shluky s 
+# Pro jednoduché případy lze použít algoritmus K-Means. Pro složitější natrénování Bayessova klasifikátoru je využíván EM-algoritmus.
+
+# <headingcell level=1>
+
+# Analýza pohybu
+
+# <markdowncell>
+
+# ![im](http://www.kky.zcu.cz/uploads/courses/zdo/lesson8/12.jpg)
+# ![im](http://www.kky.zcu.cz/uploads/courses/zdo/lesson8/11.jpg)
+# 
+# rozdílový obraz
+# 
+# ![im](http://www.kky.zcu.cz/uploads/courses/zdo/lesson8/9.jpg)
+# 
+# kumulativní obraz
+# 
+# ![im](http://www.kky.zcu.cz/uploads/courses/zdo/lesson8/10.jpg)
+# 
+# 
+# Klíčové body
+# 
+# ![im](http://www.kky.zcu.cz/uploads/courses/zdo/lesson8/8.jpg)
+# 
+# 
+
+# <headingcell level=2>
+
+# Tracking
+
+# <markdowncell>
+
+# * detekce
+# * sledování
+# 
+# http://openeuroscience.com/software/computer-vision-and-motion-tracking-software/
 
