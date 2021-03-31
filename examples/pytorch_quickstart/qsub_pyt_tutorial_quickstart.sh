@@ -7,28 +7,15 @@
 # # PBS -l select=1:ncpus=1:mem=1gb:scratch_local=4gb
 
 # add to qsub with:
-# qsub scaffan_experiment_1.sh
+# qsub qsub_pyt_tutorial_quickstart.sh
 
 # nastaveni domovskeho adresare, v promenne $LOGNAME je ulozeno vase prihlasovaci jmeno
-LOGDIR="/storage/plzen1/home/$LOGNAME/projects/"
-#LOGDIR="/storage/plzen4-ntis/home/$LOGNAME/projects/"
-DATADIR="/storage/plzen4-ntis/projects/queetech/medical/processed/scaffan2019/metacentrum"
-#LOGDIR="/storage/plzen4-ntis/projects/queetech/medical/processed/scaffan2019/metacentrum"
-# nebo snad "/storage/plzen4-ntis/home/$LOGNAME/"  ?
+LOGDIR="/storage/plzen1/home/$LOGNAME/pytorch_quickstart/"
+#DATADIR="/storage/plzen4-ntis/projects/queetech/medical/processed/scaffan2019/metacentrum"
 
-# nacteni aplikacniho modulu, ktery zpristupni aplikaci Gaussian verze 3
-# module add g03
 
-#echo "job: $PBS_JOBID running on: `uname -n`" >result # just an example computation
 echo "job: $PBS_JOBID running on: `uname -n`"
 
-#SOURCE="${BASH_SOURCE[0]}"
-#while [ -h "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symlink
-#  DIR="$( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && pwd )"
-#  SOURCE="$(readlink "$SOURCE")"
-#  [[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE" # if $SOURCE was a relative symlink, we need to resolve it relative to the path where the symlink file was located
-#done
-#DIR="$( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && pwd )"
 
 # nastaveni automatickeho vymazani adresare SCRATCH pro pripad chyby pri behu ulohy
 trap 'clean_scratch' TERM EXIT
@@ -43,30 +30,18 @@ cd $SCRATCHDIR || exit 1
 
 # activate environment option 1: miniconda installed
 export PATH=/storage/plzen1/home/$LOGNAME/miniconda3/bin:$PATH
-source activate Tbt_env
+source activate mytorch
 
-# activate environment option 2: metacentrum module - does not work
-# module add anaconda3-4.0.0
-# source activate clef
-#source activate /storage/plzen1/home/$LOGNAME/.conda/envs/clef
-
-
-#echo /storage/plzen1/home/$LOGNAME/projects/scaffan/experiments/metacentrum/SA_experiments.xlsx
 
 # this is because of python click
 export LC_ALL=C.UTF-8
 export LANG=C.UTF-8
 
-python  /storage/plzen1/home/$LOGNAME/projects/TuberculosisTBT/devel/Mira/pyt_tutorial_quickstart.py > results.txt
-#python -m scaffan set --common-spreadsheet-file /storage/plzen4-ntis/projects/queetech/medical/processed/scaffan2019/metacentrum/SA_experiments.xlsx
-#python -m io3d.datasets -sdp  /storage/plzen4-ntis/projects/queetech/
-#python /storage/plzen1/home/$LOGNAME/projects/scaffan/experiments/lobulus_segmentation.py > results.txt
 
-#echo "$DIR"
+# Put your code here
+python  /storage/plzen1/home/$LOGNAME/pytorch_quickstart/pyt_tutorial_quickstart.py > results.txt
+
 ls
 # kopirovani vystupnich dat z vypocetnicho uzlu do domovskeho adresare,
 # pokud by pri kopirovani doslo k chybe, nebude adresar SCRATCH vymazan pro moznost rucniho vyzvednuti dat
 cp results.txt $LOGDIR || export CLEAN_SCRATCH=false
-#cp results.out $LOGDIR && cp -r SA_* $DATADIR || export CLEAN_SCRATCH=false
-#cp results.out $DATADIR && cp scaffan.log $DATADIR && cp -r test_run_lobuluses_output_dir* $DATADIR || export CLEAN_SCRATCH=false
-#cp results.out $DATADIR || export CLEAN_SCRATCH=false

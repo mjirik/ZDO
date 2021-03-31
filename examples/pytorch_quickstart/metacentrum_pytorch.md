@@ -1,3 +1,7 @@
+# 
+
+* [PyTorch Quickstart](https://pytorch.org/tutorials/beginner/basics/quickstart_tutorial.html)
+* [Metacentrum beginners guide](https://wiki.metacentrum.cz/wiki/Beginners_guide)
 
 
 ## Conda
@@ -38,17 +42,37 @@ conda install pytorch torchvision torchaudio pytorch cudatoolkit=11.0 -c pytorch
 
 ## Get the scripts
 
-## Run locally (skp this on Metacentrum)
+* [Python script with training](https://github.com/mjirik/ZDO/blob/master/examples/pytorch_quickstart/pyt_tutorial_quickstart.py)
+* [Shell script for qsub](https://github.com/mjirik/ZDO/blob/master/examples/pytorch_quickstart/qsub_pyt_tutorial_quickstart.sh)
 
 ```shell
-python
+mkdir ~/pytorch_quickstart
+cd ~/pytorch_quickstart
+wget https://raw.githubusercontent.com/mjirik/ZDO/master/examples/pytorch_quickstart/pyt_tutorial_quickstart.py
+wget https://raw.githubusercontent.com/mjirik/ZDO/master/examples/pytorch_quickstart/qsub_pyt_tutorial_quickstart.sh
 ```
 
-## Run training with Metacentrum
 
+## Add training  and testing into Metacentrum queue
+```shell
+qsub qsub_pyt_tutorial_quickstart.sh
+```
 
-
-
-Check if the task is running
+## Check if the task is running
 
 https://metavo.metacentrum.cz/cs/myaccount/myjobs.html
+
+
+## See the output
+
+```shell
+cat results.txt
+```
+
+
+## Do not run the training on Metacentrum frontend
+
+But you can try it on your computer
+```shell
+python pyt_tutorial_quickstart.py
+```
