@@ -11,6 +11,7 @@
 
 # nastaveni domovskeho adresare, v promenne $LOGNAME je ulozeno vase prihlasovaci jmeno
 LOGDIR="/storage/plzen1/home/$LOGNAME/pytorch_quickstart/"
+PROJECTDIR="/storage/plzen1/home/$LOGNAME/pytorch_quickstart/"
 #DATADIR="/storage/plzen4-ntis/projects/queetech/medical/processed/scaffan2019/metacentrum"
 
 
@@ -39,7 +40,7 @@ export LANG=C.UTF-8
 
 
 # Put your code here
-python  /storage/plzen1/home/$LOGNAME/pytorch_quickstart/pyt_tutorial_quickstart.py > results.txt
+python  $PROJECTDIR/pyt_tutorial_quickstart.py > results.txt
 
 ls
 # kopirovani vystupnich dat z vypocetnicho uzlu do domovskeho adresare,
