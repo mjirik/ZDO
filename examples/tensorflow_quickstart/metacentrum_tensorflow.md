@@ -39,9 +39,9 @@ or restart the session.
 ## Create the environment
 
 ```shell
-conda create -n mytorch python
-conda activate mytorch
-conda install pytorch torchvision torchaudio pytorch cudatoolkit=11.0 -c pytorch
+conda create -n mytf python
+conda activate mytf
+conda install tensorflow-gpu
 ```
 ## Check cuda with interactive task
 
@@ -52,8 +52,8 @@ Wait for interactive task and check cuda
 
 ```shell
 export PATH=/storage/plzen1/home/$LOGNAME/miniconda3/bin:$PATH
-source activate mytorch
-python -c "import torch;print(torch.cuda.is_available())"
+source activate mytf
+python -c "import tensorflow as tf;print(tf.config.list_physical_devices('GPU'))"
 ```
 
 
@@ -63,10 +63,10 @@ python -c "import torch;print(torch.cuda.is_available())"
 * [Shell script for qsub](https://github.com/mjirik/ZDO/blob/master/examples/pytorch_quickstart/qsub_pyt_tutorial_quickstart.sh)
 
 ```shell
-mkdir -p ~/pytorch_quickstart
-cd ~/pytorch_quickstart
-wget https://raw.githubusercontent.com/mjirik/ZDO/master/examples/pytorch_quickstart/pyt_tutorial_quickstart.py
-wget https://raw.githubusercontent.com/mjirik/ZDO/master/examples/pytorch_quickstart/qsub_pyt_tutorial_quickstart.sh
+mkdir -p ~/tensorflow_quickstart
+cd ~/tensorflow_quickstart
+wget https://raw.githubusercontent.com/mjirik/ZDO/master/examples/tensorflow_quickstart/pyt_tutorial_quickstart.py
+wget https://raw.githubusercontent.com/mjirik/ZDO/master/examples/tensorflow_quickstart/qsub_pyt_tutorial_quickstart.sh
 ```
 
 
