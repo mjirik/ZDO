@@ -1,5 +1,7 @@
 # 
 
+
+
 * [PyTorch Quickstart](https://pytorch.org/tutorials/beginner/basics/quickstart_tutorial.html)
 * [Metacentrum beginners guide](https://wiki.metacentrum.cz/wiki/Beginners_guide)
 
@@ -9,12 +11,15 @@
 Install [Miniconda](https://docs.conda.io/en/latest/miniconda.html)
 
 ```shell
-wget http://home.zcu.cz/~mjirik/lisa/install/install_conda.sh && source install_conda.sh
+mkdir -p ~/miniconda3
+wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda3/miniconda.sh
+bash ~/miniconda3/miniconda.sh -b -u -p ~/miniconda3
+rm -rf ~/miniconda3/miniconda.sh
 ```
 
 Init for your shell
 ```shell
-conda init bash
+~/miniconda3/bin/conda init bash
 ```
 
 Check if conda is ok
@@ -37,8 +42,20 @@ or restart the session.
 conda create -n mytorch python
 conda activate mytorch
 conda install pytorch torchvision torchaudio pytorch cudatoolkit=11.0 -c pytorch
-
 ```
+## Check cuda with interactive task
+
+```shell
+qsub -I -l select=1:ncpus=1:ngpus=2:mem=10gb:cl_konoc=False:cl_gram=False  -l walltime=0:30:00 -q gpu
+```
+Wait for interactive task and check cuda
+
+```shell
+export PATH=/storage/plzen1/home/$LOGNAME/miniconda3/bin:$PATH
+source activate mytorch
+python -c "import torch;print(torch.cuda.is_available())"
+```
+
 
 ## Get the scripts
 
