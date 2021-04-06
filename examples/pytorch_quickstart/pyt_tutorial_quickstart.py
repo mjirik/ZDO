@@ -3,7 +3,7 @@ from torch import nn
 from torch.utils.data import DataLoader
 from torchvision import datasets
 from torchvision.transforms import ToTensor, Lambda, Compose
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 
 # Download training data from open datasets.
 training_data = datasets.FashionMNIST(
@@ -126,3 +126,4 @@ with torch.no_grad():
     pred = model(x)
     predicted, actual = classes[pred[0].argmax(0)], classes[y]
     print(f'Predicted: "{predicted}", Actual: "{actual}"')
+    plt.imshow(pred[x])

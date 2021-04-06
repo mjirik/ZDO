@@ -65,15 +65,16 @@ python -c "import tensorflow as tf;print(tf.config.list_physical_devices('GPU'))
 ```shell
 mkdir -p ~/tensorflow_quickstart
 cd ~/tensorflow_quickstart
-wget https://raw.githubusercontent.com/mjirik/ZDO/master/examples/tensorflow_quickstart/pyt_tutorial_quickstart.py
-wget https://raw.githubusercontent.com/mjirik/ZDO/master/examples/tensorflow_quickstart/qsub_pyt_tutorial_quickstart.sh
+wget https://raw.githubusercontent.com/mjirik/ZDO/master/examples/tensorflow_quickstart/example_mnist.py
+wget https://raw.githubusercontent.com/mjirik/ZDO/master/examples/tensorflow_quickstart/qsub_example_mnist.sh
 ```
 
 
 ## Add training  and testing into Metacentrum queue
 ```shell
-qsub qsub_pyt_tutorial_quickstart.sh
+qsub qsub_example_mnist.sh
 ```
+
 
 ## Check if the task is running
 

@@ -41,12 +41,12 @@ or restart the session.
 ```shell
 conda create -n mytorch python
 conda activate mytorch
-conda install pytorch torchvision torchaudio pytorch cudatoolkit=11.0 -c pytorch
+conda install pytorch torchvision torchaudio pytorch cudatoolkit=11.0 matplotlib -c pytorch
 ```
 ## Check cuda with interactive task
 
 ```shell
-qsub -I -l select=1:ncpus=1:ngpus=2:mem=10gb:cl_konoc=False:cl_gram=False  -l walltime=0:30:00 -q gpu
+qsub -I -l select=1:ncpus=1:ngpus=2:mem=10gb:cl_konos=False:cl_gram=False  -l walltime=0:30:00 -q gpu
 ```
 Wait for interactive task and check cuda
 
@@ -72,7 +72,7 @@ wget https://raw.githubusercontent.com/mjirik/ZDO/master/examples/pytorch_quicks
 
 ## Add training  and testing into Metacentrum queue
 ```shell
-qsub qsub_pyt_tutorial_quickstart.sh
+qsub -l "ngpus=2" -q gpu qsub_pyt_tutorial_quickstart.sh
 ```
 
 ## Check if the task is running
